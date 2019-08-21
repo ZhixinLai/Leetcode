@@ -1,0 +1,16 @@
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        dic = {}
+        dic2 = {}
+        for i,j in zip(s,t):
+            if i not in dic:
+                dic[i] = j
+            else:
+                if dic[i] != j:
+                    return False
+            if j not in dic2:
+                dic2[j] = i
+            else:
+                if dic2[j] != i:
+                    return False
+        return True
