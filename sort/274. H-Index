@@ -1,0 +1,9 @@
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        if not citations:
+            return 0 
+        cit = sorted(citations)
+        res = []
+        for i in range(0, len(cit)):
+            res.append(min(cit[i], len(cit)-i))
+        return max(res)
