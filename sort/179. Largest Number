@@ -1,0 +1,69 @@
+# method 1
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        temp1 = temp
+        i1 = i
+        temp = str(temp)
+        i = str(i)
+        min_len = min(len(temp), len(i))
+        if len(temp) == len(i):
+            return max(temp1, i1)
+        elif len(temp) > len(i):
+            if temp[0:min_len] == i[0:min_len]:
+                for j in range(min_len, len(temp)):
+                    if temp[j] > i[0]:
+                        return temp1
+                    elif temp[j] < i[0]:
+                        return i1
+                    else:
+                        continue
+                return temp1
+            elif temp[0:min_len] > i[0:min_len]:
+                return temp1
+            else:
+                return i1
+        else:
+            if i[0:min_len] == temp[0:min_len]:
+                for j in range(min_len, len(i)):
+                    if i[j] > temp[0]:
+                        return i1
+                    elif i[j] < temp[0]:
+                        return temp1
+                    else:
+                        continue
+                return temp1
+            elif temp[0:min_len] > i[0:min_len]:
+                return temp1
+            else:
+                return i1
+                
+# method 2 -- binary research
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        res = [str(nums[0])]
+        for i in range(1, len(nums)):
+            l, r = 0, len(res)-1
+            while l <= r:
+                mid = (l+r)//2
+                if self.findmin(res[mid], nums[i]) == 1:
+                    l = mid+1
+                elif self.findmin(res[mid], nums[i]) == -1:
+                    r = mid-1
+                else:   # 8 7 6 4 3 2
+                    l = mid
+                    break
+            res.append(0)
+            temp = res[l:-1]
+            res[l] = str(nums[i])
+            res[l+1:] = temp
+        if res[0] == '0':
+            return '0'
+        return ''.join(res)
+    
+    def findmin(self, temp, i):
+        if str(temp)+str(i) == str(i)+str(temp):
+            return 0
+        elif str(temp)+str(i) > str(i)+str(temp):
+            return 1
+        else:
+            return -1
