@@ -1,0 +1,24 @@
+class Solution(object):
+    def hammingWeight(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        """
+        # method one
+        lis = bin(n)[2:]
+        res = 0
+        for i in lis:
+            if i == '1':
+                res += 1
+        return res
+        """
+        # method two
+        i = 0
+        res = 0
+        while i < 32:
+            if n&1 == 1:
+                res += 1
+            n = n>>1
+            i+=1
+        return res
