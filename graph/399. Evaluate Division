@@ -1,0 +1,88 @@
+class Solution(object):
+    def calcEquation(self, equations, values, queries):
+        """
+        :type equations: List[List[str]]
+        :type values: List[float]
+        :type queries: List[List[str]]
+        :rtype: List[float]
+        """
+        # build graph for the question
+        self.dic = self.graphbuild(equations, values)
+
+        # BFS
+        res = []
+        for i in queries:
+            res.append(float(self.graphdfs(i)))
+        return res
+    # version one: BFS
+    def graphbfs1(self, que):   
+        if que[0] not in self.dic or que[1] not in self.dic:
+            return -1
+        stack = [que[0]]
+        visited = [que[0]]  # because not all the vertes in graph are conneted, thus shoule                               
+                            # use two stacks to record the vertexs have been visited and 
+        mul = [1]
+        while stack:
+            if stack[0] == que[1]:
+                return mul[0]
+            for j in self.dic[stack[0]]:
+                if j[0] not in stack and j[0] not in visited:
+                    visited.append(j[0])
+                    stack.append(j[0])
+                    mul.append(mul[0]*j[1])
+            stack.pop(0)
+            mul.pop(0)
+        return -1
+    # version two: BFS with improvment
+    def graphbfs2(self, que):   
+        if que[0] not in self.dic or que[1] not in self.dic:
+            return -1
+        stack = [que[0]]
+        visited = [que[0]]
+        mul = [1]
+        while stack:
+            if stack[0] == que[1]:
+                # build new link between new verticals
+                self.dic[que[0]].append((que[1], mul[0]))
+                self.dic[que[1]].append((que[0], 1/mul[0]))
+                return mul[0]
+            for j in self.dic[stack[0]]:
+                if j[0] not in stack and j[0] not in visited:
+                    visited.append(j[0])
+                    stack.append(j[0])
+                    mul.append(mul[0]*j[1])
+            stack.pop(0)
+            mul.pop(0)
+        return -1
+     # version three: DFS
+    
+    def graphdfs(self, que):
+        self.visited = []
+        mul = 1
+        def dfs(ver, mul, tar):
+            if ver not in self.dic or tar not in self.dic or ver in self.visited:
+                return -1
+            if ver == tar:
+                return mul
+            self.visited.append(ver)
+            for i in self.dic[ver]:
+                temp = max(-1, dfs(i[0], mul*i[1], tar))
+                if temp > -1:
+                    return temp
+            return -1
+        return dfs(que[0], mul, que[1])
+    
+    def graphbuild(self, ver, edg):
+        dic = {}
+        for i, j in zip(ver, edg):
+            if i[0] in dic:
+                dic[i[0]].append((i[1], j))
+            else:
+                dic[i[0]] = []
+                dic[i[0]].append((i[1],j))
+            if i[1] in dic:
+                dic[i[1]].append((i[0], 1/j))
+            else:
+                dic[i[1]] = []
+                dic[i[1]].append((i[0],1/j))
+        return dic
