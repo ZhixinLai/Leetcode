@@ -1,0 +1,12 @@
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        """
+        # method one: hash map
+        dic = collections.Counter(nums)
+        for i in dic:
+            if dic[i] > len(nums)//2:
+                return i
+        """
+        # method two: sort set and select the mid element as result
+        nums = sorted(nums)
+        return nums[len(nums)//2]
