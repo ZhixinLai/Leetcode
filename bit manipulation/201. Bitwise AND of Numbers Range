@@ -1,0 +1,24 @@
+class Solution(object):
+    def rangeBitwiseAnd(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        """
+        # method one: time out of limit
+        if m == n:
+            return m
+        res = m
+        for i in range(m+1, min(n+1, m*2+1)):
+            res = res & i
+        return res
+        """
+        # method two: tricky thought
+        i = 0
+        while m != n:
+            m = m>>1
+            n = n>>1
+            i+=1
+        m = m<<i
+        return m
