@@ -1,0 +1,21 @@
+class Solution:
+    # @param n, an integer
+    # @return an integer
+    def reverseBits(self, n):
+        """
+        # method one: utilized the bit matipulation function to do
+        m = 0
+        i = 1
+        m = m|(1 & n)
+        while i < 32:
+            n = n>>1
+            m = m<<1
+            i+=1
+            m = m|(1 & n)
+        return m
+        """
+        # method two
+        lis = bin(n)[2:]
+        lis = (32-len(lis))*'0' + lis
+        lis = ''.join(list((reversed(lis))))
+        return int(lis,2)
