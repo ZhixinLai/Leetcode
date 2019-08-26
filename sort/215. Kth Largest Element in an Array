@@ -5,7 +5,7 @@ class Solution:
         return sorted(nums)[-k]
         """
         """
-        # method two: count
+        # method two: count o(n,k) = n*k**2
         temp = [-float('inf')] * k
         for i in nums:
             for j in range(k):
