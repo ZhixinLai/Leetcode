@@ -1,0 +1,82 @@
+class Solution(object):
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        """
+        # method one: out of limit
+        if not nums:
+            return 0
+        a, b = min(nums), max(nums)
+        res = 1
+        temp = 1
+        for i in range(a, b):
+            if i in nums and i+1 in nums:
+                temp += 1
+                res = max(res, temp)
+            else:
+                temp = 1
+        return res
+        """
+        """
+        #method two: o(n) = nlog(n)
+        if not nums:
+            return 0
+        nums = sorted(list(set(nums)))
+        temp = res = 1
+        for i in range(0, len(nums)-1):
+            if nums[i] == nums[i+1] - 1:
+                temp += 1
+                res = max(res,temp)
+            else:
+                temp = 1
+        return res
+        """
+        """
+        # method three: o(n) = n*2
+        if not nums:
+            return 0
+        dic = {}
+        for i in list(set(nums)):
+            dic[i] = True
+        res = 1
+        while nums:
+            temp = 1
+            temp1 = nums[0] + 1
+            temp2 = nums[0] - 1
+            nums.pop(0)
+            while temp1 in nums:
+                temp += 1
+                nums.remove(temp1)
+                temp1 += 1
+            while temp2 in nums:
+                temp += 1
+                nums.remove(temp2)
+                temp2 -= 1
+            res = max(res, temp)
+        return res
+        """
+        """
+        # method four: o(n) = n
+        nums = set(nums)
+        best = 0
+        for x in nums:
+            if x - 1 not in nums:
+                y = x + 1
+                while y in nums:
+                    y += 1
+                best = max(best, y - x)
+        return best
+        """
+        # method five: o(n) = n*2
+        nums = list(set(nums))
+        best = 0
+        for x in nums:
+            if x - 1 not in nums:
+                y = x + 1
+                while y in nums:
+                    y += 1
+                best = max(best, y - x)
+        return best
+        
