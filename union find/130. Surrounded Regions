@@ -1,0 +1,74 @@
+class Solution(object):
+    def solve(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """
+        """
+        # method one: out of time
+        for ii in range(0,len(board)):
+            for jj in range(0, len(board[0])):
+                if board[ii][jj] == 'O':
+                    judge = True
+                    temp = [(ii,jj)]
+                    tempp = [(ii,jj)]
+                    board[ii][jj] = '#'
+                    while temp:
+                        i, j = temp[0]
+                        board[i][j] = '#'
+                        if i == 0 or i == len(board)-1 or j == 0 or j == len(board[0])-1:
+                            judge = False
+                        if i > 0 and board[i-1][j] == 'O':
+                            temp.append((i-1, j))
+                            tempp.append((i-1, j))
+                        if j < len(board[0])-1 and board[i][j+1] == 'O':
+                            temp.append((i, j+1))
+                            tempp.append((i, j+1))
+                        if j > 0 and board[i][j-1] == 'O':
+                            temp.append((i, j-1))
+                            tempp.append((i, j-1))
+                        if i < len(board)-1 and board[i+1][j] == 'O':
+                            temp.append((i+1, j))
+                            tempp.append((i+1, j))
+                        temp.pop(0)
+                    if judge:
+                        for (i,j) in tempp:
+                            board[i][j] = 'X'
+        for i in range(0, len(board)):
+            for j in range(0, len(board[0])):
+                if board[i][j] == '#':
+                    board[i][j] = 'O'
+        return
+        """
+        # method two:
+        if not any(board): return
+        m, n = len(board), len(board[0])
+        temp = []
+        for i in range(0, m):
+            if board[i][0] == 'O':
+                temp += [(i, 0)]
+            if board[i][n-1] == 'O':
+                temp += [(i, n-1)]
+        for j in range(0, n):
+            if board[0][j] == 'O':
+                temp += [(0, j)]
+            if board[m-1][j] == 'O':
+                temp += [(m-1, j)]
+        while temp:
+            i, j = temp[0][0], temp[0][1]
+            board[i][j] = 'S'
+            if i > 0 and board[i-1][j] == 'O':
+                temp += [(i-1, j)]
+            if j > 0 and board[i][j-1] == 'O':
+                temp += [(i, j-1)]
+            if i < m-1 and board[i+1][j] == 'O':
+                temp += [(i+1, j)]
+            if j < n-1 and board[i][j+1] == 'O':
+                temp += [(i, j+1)]
+            temp.pop(0)
+        for i in range(0, m):
+            for j in range(0, n):
+                if board[i][j] == 'S':
+                    board[i][j] = 'O'
+                else:
+                    board[i][j] = 'X'
