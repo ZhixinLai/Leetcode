@@ -1,0 +1,59 @@
+class Solution:
+    def findStrobogrammatic(self, n: int) -> List[str]:
+        # method two: insert into middle of the former one
+        self.sin = ['0','1','8']
+        self.dou = ["11","69","88","96","00"]
+        if n == 1:
+            return self.sin
+        elif n == 2:
+            return ["11","69","88","96"]
+        self.res = set(["11","69","88","96"])
+        self.dfs(n-2)
+        return list(self.res)
+    
+    def dfs(self, n):
+        if not n:
+             return
+        elif n == 1:
+            temp = set()
+            for i in self.res:
+                for j in self.sin:
+                    temp.add(i[:len(i)//2]+j+i[len(i)//2:])
+            self.res = set(temp)
+            return
+        else:
+            temp = set()
+            for i in self.res:
+                for j in self.dou:
+                    temp.add(i[:len(i)//2]+j+i[len(i)//2:])
+            self.res = temp
+            self.dfs(n-2)
+            return
+        """
+        # method one: easy
+        # 0 1 8
+        # 11/88/69/96/  /00/
+        if n == 1:
+            return ['0','1','8']
+        self.res = set()
+        self.dic = {'0':'0','1':'1','6':'9','8':'8','9':'6'}
+        self.lis = {'0','1','8'}
+        k, temp = 0, ''
+        self.dfs(k, temp, n)
+        return list(self.res)
+    def dfs(self, k, temp, n):
+        if k == n:
+            self.res.add(temp)
+            return
+        for i in ['0','1','6','8','9']:
+            if (k == 0 or k==n-1) and i == '0':
+                continue
+            if k < n//2:
+                self.dfs(k+1, temp+i, n)
+            elif k != n-1-k and k >= n//2 and self.dic[i] == temp[n-1-k]:
+                self.dfs(k+1, temp+i, n)
+            elif k == n-1-k and i in self.lis:
+                self.dfs(k+1, temp+i, n)
+            else:
+                continue
+        """
