@@ -1,0 +1,28 @@
+class Solution:
+    def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:
+        dic = {}
+        temp = 0
+        res = 0
+        l, r = 0, 0
+        while r < len(s):
+            if s[r] not in dic and len(dic) < 2:
+                dic[s[r]] = r
+                temp += 1
+                res = max(res,temp)
+            elif s[r] in dic and s[r] == s[r-1]:
+                temp += 1
+                res = max(res,temp)
+            elif s[r] in dic and s[r] != s[r-1]:
+                dic[s[r]] = r
+                temp += 1
+                res = max(res,temp)
+            elif s[r] not in dic and len(dic) == 2:
+                l = dic[s[r-1]]
+                for i in dic:
+                    if i != s[r-1]:
+                        dic.pop(i)
+                        break
+                dic[s[r]] = r
+                temp = r-l+1
+            r += 1
+        return res
