@@ -1,0 +1,24 @@
+class Solution:
+    def grayCode(self, n: int) -> List[int]:
+        # 第一项改变最右边的位元，第二项改变右起第一个为1的位元的左边位元，第三、四项方法同第一、二项，如此反复，即可排列出n个位元的格雷码。
+        nums = 2**n
+        i = 1
+        res = [0]
+        while i <= nums:
+            bin_num = bin(res[-1])[2:]
+            temp = list('0'*(n-len(bin_num)) + bin_num)
+            if temp[-1] == '0':
+                temp[-1] = '1'
+            else:
+                temp[-1] = '0'
+            res += [int(''.join(temp),2)]
+            for k in range(n-1, -1, -1):
+                if temp[k] == '1':
+                    if temp[k-1] == '0':
+                        temp[k-1] = '1'
+                    else:
+                        temp[k-1] = '0'
+                    res += [int(''.join(temp),2)]
+                    break
+            i += 2
+        return res[:-1]
