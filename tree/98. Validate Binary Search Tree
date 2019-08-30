@@ -1,0 +1,52 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isValidBST(self, root: TreeNode, min_value = float('inf'), max_value = -float('inf')) -> bool:
+        # method three: from up to down to convey max and min number
+        if not root:
+            return True
+        if root.val <= max_value or root.val >= min_value:
+            return False
+        return self.isValidBST(root.left, min(min_value, root.val), max_value) and \
+               self.isValidBST(root.right, min_value, max(root.val, max_value))
+        """
+        # method one: right, but but concise
+        return self.dfs(root)[0]
+    
+    def dfs(self, root):
+        if not root:
+            return [True, '@', '@']
+        else:
+            left_state = self.dfs(root.left)
+            right_state = self.dfs(root.right)
+            print(left_state)
+            print(right_state)
+            if left_state[1] == '@':
+                left_state[1] = left_state[2] = root.val-0.000001
+            if right_state[1] =="@":
+                right_state[1] = right_state[2] = root.val+0.000001
+            if left_state[0] and right_state[0] and left_state[1] < root.val and right_state[2] > root.val:
+                return [True, max(left_state[1],right_state[1],root.val), min(left_state[2],right_state[2],root.val)]
+            else:
+                return [False, max(left_state[1],right_state[1],root.val), min(left_state[2],right_state[2],root.val)]
+        
+        # method one: wrong, because [10,5,15,Null,Null,6,20] will be True
+        """   
+        """
+        if not root:
+            return True
+        else:
+            left_val = self.isValidBST(root.left)
+            right_val = self.isValidBST(root.right)
+            if left_val and right_val:
+                if not (root.left and root.left.val >= root.val) and not (root.right and root.right.val <= root.val):
+                    return True
+            else:
+                return False
+        """
+        
