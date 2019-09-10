@@ -1,0 +1,36 @@
+class Solution:
+    def longestValidParentheses(self, s: str) -> int:
+        """
+        # 双指针不好做
+        if not s:
+            return 0
+        left, right = 0, 0
+        num = 0
+        res = 0
+        res_temp = 0
+        while right < len(s):
+            if s[right] == '(':
+                num += 1
+                right += 1
+            else:
+                num -= 1
+                if num >= 0:
+                    res_temp += 2
+                    res = res_temp if res_temp > res else res
+                    right += 1
+                else:
+                    num = 0
+                    res_temp = 0
+                    right += 1
+                    left = right
+        return res
+        """
+        dp, stack = [0]*(len(s) + 1), []
+        for i in range(len(s)):
+            if s[i] == '(':
+                stack.append(i)
+            else:
+                if stack:
+                    p = stack.pop()
+                    dp[i + 1] = dp[p] + i - p + 1
+        return max(dp)
