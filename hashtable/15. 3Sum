@@ -1,0 +1,14 @@
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums = sorted(nums)
+        res = set()
+        for i in range(0, len(nums)):
+            dic = {}
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            for j in range(i+1, len(nums)):
+                if -nums[i]-nums[j] not in dic:
+                    dic[nums[j]] = j
+                else:
+                    res.add((nums[i],-nums[i]-nums[j],nums[j]))
+        return res
