@@ -1,0 +1,18 @@
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        y = 0
+        a = 1
+        if x < 0:
+            x = -x
+            a = -1
+        while x != 0:
+            y = y*10+x%10
+            x = x//10
+        y = y*a
+        if y<-2**31 or y>2**31-1:
+            return(0)
+        return(y)
