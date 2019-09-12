@@ -1,0 +1,26 @@
+class Solution:
+    def myAtoi(self, str: str) -> int:
+        index = 0
+        judge = False
+        res = ''
+        str = str.strip()
+        if not str:
+            return 0
+        str = list(str)
+        if str[index] == '-' or str[index] == '+':
+            if str[index] == '-':
+                judge = True
+            str.remove(str[0])
+        print(str)
+        while index < len(str) and str[index].isdigit():
+            res += str[index]
+            index += 1
+        print(res)
+        if not res:
+            return 0
+        res = int(res)
+        if judge:
+            res = -res
+        res = min(max(-2**31,res),2**31-1)
+        return res
+        
