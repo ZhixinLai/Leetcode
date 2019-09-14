@@ -1,0 +1,28 @@
+//Java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode prev = new ListNode(0);
+        ListNode cur = prev;
+        int temp = 0;
+        while (l1!=null || l2!=null || temp != 0)
+        {
+            cur.next = new ListNode(0);
+            int l1_val = (l1!=null)?l1.val:0;
+            int l2_val = (l2!=null)?l2.val:0;
+            cur.next.val = (l1_val+l2_val+temp)%10;
+            temp = (l1_val+l2_val+temp)/10;
+            l1 = (l1!=null)?l1.next:l1;
+            l2 = (l2!=null)?l2.next:l2;
+            cur = cur.next;
+        }
+        return prev.next;
+    }
+}
