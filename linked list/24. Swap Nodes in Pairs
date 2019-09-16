@@ -40,4 +40,33 @@ class Solution:
             pre.next, cur.next, nex.next, pre, cur = nex, nex.next, cur, cur, nex.next
         return dummpy.next
         """
-    
+ 
+ //=================== 
+ //Java
+//====================
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        ListNode res = new ListNode(0);
+        ListNode pre = res;
+        ListNode cur = head;
+        res.next = head;
+        while (cur!=null && cur.next!=null){
+            ListNode next = cur.next;
+            pre.next = next;
+            cur.next = next.next;
+            next.next = cur;
+            pre = cur;
+            cur = cur.next;
+        }
+        return res.next;
+        
+    }
+}
