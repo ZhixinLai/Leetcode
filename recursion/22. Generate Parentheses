@@ -1,0 +1,31 @@
+class Solution {
+    public List<String> res = new ArrayList<String>();
+    public List<String> generateParenthesis(int n) {
+        dfs(n, n, "");
+        return res;
+    }
+
+
+    public void dfs(int left, int right, String temp){
+        if (left == 0 && right == 0){
+            res.add(temp);
+            return;
+        }
+        else if(left>right || left<0 || right<0){
+            return;
+        }
+        else if(left == 0 && right != 0){
+            dfs(left, right-1, temp+')');
+            return;
+        }
+        else if(left >= right){
+            dfs(left-1, right, temp+'(');
+            return;
+        }
+        else if(left<right){
+            dfs(left, right-1, temp+')');
+            dfs(left-1, right, temp+'(');
+            return;
+        }
+    }
+}
