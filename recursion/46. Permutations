@@ -5,6 +5,7 @@ class Solution {
         recur(nums, temp, res);
         return res;
     }
+    
     public void recur(int[] nums, List<Integer> temp, List<List<Integer>> res){
         if (nums.length == temp.size()&&res.contains(temp)==-1){
             res.add(new ArrayList<>(temp));
