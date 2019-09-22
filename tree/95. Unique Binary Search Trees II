@@ -1,0 +1,16 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public static List<TreeNode> generateTrees(int n) {
+        List<TreeNode> res = new ArrayList<>();
+        Integer k = null;
+        return res;
+    }
+}
