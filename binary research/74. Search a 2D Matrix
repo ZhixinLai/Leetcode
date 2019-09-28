@@ -13,7 +13,6 @@ class Solution:
                 else:
                     left = mid + 1
         return False
-        
     # method two: research from the top right one; if the number is bigger than target and then go left else go down
     # O(n) = n+m
     def searchMatrix2(self, matrix, target):
