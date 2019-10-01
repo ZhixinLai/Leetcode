@@ -3,7 +3,7 @@ class Solution {
         // stack
         // for s
         // for stack
-        if (s.length() == 0) return s;     
+        if (s.length() == 0) return s; 
         int j;
         Stack<String> stack = new Stack<String>();
         for (int i = 0; i < s.length(); i++) {
