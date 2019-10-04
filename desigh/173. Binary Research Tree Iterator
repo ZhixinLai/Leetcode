@@ -53,7 +53,6 @@ class BSTIterator(object):
         self.stack = []
         self.left(root)
         
-        
     def next(self):
         temp = self.stack.pop(-1)
         self.left(temp.right)
