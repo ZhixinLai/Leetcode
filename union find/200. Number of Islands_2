@@ -33,7 +33,6 @@ class Solution {
     }
 }
 
-
 // recursive method
 public class Solution {
     private int n;
