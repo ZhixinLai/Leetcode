@@ -4,7 +4,6 @@ class Solution:
         nums = 2**n
         i = 1
         res = [0]
-        
         while i <= nums:
             bin_num = bin(res[-1])[2:]
             temp = list('0'*(n-len(bin_num)) + bin_num)
