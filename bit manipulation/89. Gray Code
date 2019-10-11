@@ -12,7 +12,7 @@ class Solution:
             else:
                 temp[-1] = '0'
             res += [int(''.join(temp),2)]
-            for k in range(n-1, -1, -1):
+            for k in range(n-1, -1, -1): pp
                 if temp[k] == '1':
                     if temp[k-1] == '0':
                         temp[k-1] = '1'
