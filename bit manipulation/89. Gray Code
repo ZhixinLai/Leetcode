@@ -20,5 +20,5 @@ class Solution:
                         temp[k-1] = '0'
                     res += [int(''.join(temp),2)]
                     break
-            i += 2  h
+            i += 2
         return res[:-1]
