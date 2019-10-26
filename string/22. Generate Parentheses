@@ -1,0 +1,49 @@
+// method one
+class Solution {
+    //public List<String> res = new ArrayList<String>();
+    public List<String> generateParenthesis(int n) {
+
+        List<List<String>> lists = new ArrayList<>();
+        lists.add(Collections.singletonList(""));
+        for (int i = 1; i <= n; ++i){
+            List<String> list = new ArrayList<>();
+            for (int j = 0; j < i; ++j){
+                for (String first : lists.get(j)){
+                    for (String second : lists.get(i - 1 - j)){
+                        list.add( first + "(" + second + ")" );
+                    }
+                }
+            }
+            lists.add(list);
+        }
+        return lists.get(lists.size() - 1);
+    }
+}
+// method two
+class Solution {
+    //public List<String> res = new ArrayList<String>();
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+        if(n == 0) return res;
+        res.add("(");
+        map.put("(",1);
+        for(int i = 1; i < n*2; i++){
+            List<String> tmp = new ArrayList<>();
+            for(String j: res){
+                int l = map.get(j);
+                int r = j.length() - l;
+                if(l < n){
+                    tmp.add(j + "(");
+                    map.put(j + "(", l + 1);
+                }
+                if(l > r){
+                    tmp.add(j + ")");
+                    map.put(j + ")", l);
+                }
+            }
+            res = tmp;
+        }
+        return res;
+    }
+}
